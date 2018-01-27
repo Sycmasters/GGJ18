@@ -37,6 +37,8 @@ ModelImporter:
     100058: musgo006
     100060: musgo007
     100062: Rocks
+    100064: capsula captura
+    100066: Cylinder002
     400000: Base
     400002: Conector_Base01
     400004: Conector_Base02
@@ -69,12 +71,17 @@ ModelImporter:
     400058: musgo006
     400060: musgo007
     400062: Rocks
+    400064: capsula captura
+    400066: Cylinder002
     2100000: personajeGuia
     2100002: terreno
     2100004: Base
     2100006: activado_Base
     2100008: Rocks
     2100010: musgo
+    2100012: capsula
+    2100014: capsulaContenido
+    2100016: activado2_Base
     2300000: Base
     2300002: Conector_Base01
     2300004: Conector_Base02
@@ -105,6 +112,8 @@ ModelImporter:
     2300054: musgo005
     2300056: musgo006
     2300058: musgo007
+    2300060: capsula captura
+    2300062: Cylinder002
     3300000: Base
     3300002: Conector_Base01
     3300004: Conector_Base02
@@ -135,6 +144,8 @@ ModelImporter:
     3300054: musgo005
     3300056: musgo006
     3300058: musgo007
+    3300060: capsula captura
+    3300062: Cylinder002
     4300000: Personaje 01
     4300002: terreno
     4300004: Base
@@ -157,6 +168,8 @@ ModelImporter:
     4300038: Rocks15
     4300040: Rocks16
     4300042: musgo
+    4300044: capsula captura
+    4300046: Cylinder002
     7400000: Take 001
     9500000: //RootNode
   externalObjects: {}
