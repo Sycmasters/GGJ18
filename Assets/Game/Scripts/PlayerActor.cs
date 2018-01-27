@@ -132,6 +132,12 @@ public class PlayerActor : MonoBehaviour
 				grabbedObj.GetComponent<Rigidbody>().isKinematic = true;
 				formerParent = grabbedObj.parent;
 				grabbedObj.SetParent(transform);
+
+				CreaturesBehaviour creature = grabbedObj.GetComponent<CreaturesBehaviour>();
+				if(creature)
+				{
+					creature.ShowCode();
+				}
 			}
 		}
 	}
