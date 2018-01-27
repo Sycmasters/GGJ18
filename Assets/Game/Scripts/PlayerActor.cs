@@ -6,16 +6,22 @@ public class PlayerActor : MonoBehaviour
 {
 	public int inputIndex = 0;
 	public float moveSpeed = 3, runSpeed = 6;
+	public int playerLifes = 3;
 
-	private float movementSpeed;
+	public PlayerBase ownBase;
+
+	private float movementSpeed, lifeSecondCounter;
 	private Vector3 movement;
+	private int originalLifeCount;
 
 	private Rigidbody rbody;
+
 
 	// Use this for initialization
 	void Start () 
 	{
 		rbody = GetComponent<Rigidbody> ();
+		originalLifeCount = playerLifes;
 	}
 
 	private void Update ()
@@ -38,5 +44,20 @@ public class PlayerActor : MonoBehaviour
 							   vertical * movementSpeed);
 
 		rbody.velocity = movement;
+	}
+
+	private void OnTriggerStay (Collider other)
+	{
+		if(other.name.ToLower().Contains("heal") && other.transform.IsChildOf(ownBase.transform))
+		{
+			if (Time.time > lifeSecondCounter) 
+			{
+				if(playerLifes < originalLifeCount)
+				{
+					playerLifes++;
+				}
+				lifeSecondCounter = Time.time + 1;
+			}
+		}
 	}
 }

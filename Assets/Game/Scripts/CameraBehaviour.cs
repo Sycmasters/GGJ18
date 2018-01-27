@@ -8,9 +8,22 @@ public class CameraBehaviour : MonoBehaviour
 	public bool follow = true;
 	public float lerpAmount = 3;
 	public Vector3 offset;
-	
-	// Update is called once per frame
-	private void LateUpdate () 
+
+	public Camera thisCam;
+	public Renderer charRender;
+
+	private void Awake ()
+	{
+		thisCam = GetComponent<Camera> ();
+		charRender = character.GetComponent<Renderer> ();
+	}
+
+	private void Start ()
+	{
+		transform.position = new Vector3 (character.position.x, transform.position.y, character.position.z);
+	}
+
+	private void FixedUpdate () 
 	{
 		if (follow) {
 			transform.position = Vector3.Lerp (transform.position, 
