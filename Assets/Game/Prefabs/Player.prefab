@@ -197,10 +197,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputIndex: 0
-  moveSpeed: 10
-  runSpeed: 15
+  moveSpeed: 6
+  runSpeed: 12
   playerLifes: 3
   ownBase: {fileID: 0}
+  grabbedObj: {fileID: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!136 &136478472632167062
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -38,29 +38,41 @@ public class PlayerActor : MonoBehaviour
 			movementSpeed = Input.GetKey ("joystick " + (inputIndex + 1) + " button 0") ? runSpeed : moveSpeed;
 
 			// Grab things
-			if(Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 6"))
+			if(Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 4"))
 			{
 				GrabObject();
 			}
-			else if(Input.GetKeyUp("joystick " + (inputIndex + 1) + " button 6"))
+			else if(Input.GetKeyUp("joystick " + (inputIndex + 1) + " button 4"))
 			{
 				ReleaseObject();
 			}
-		} 
+
+            if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 5"))
+            {
+                HitSomething();
+            }
+        } 
 		else 
 		{
 			movementSpeed = Input.GetKey (KeyCode.LeftShift) ? runSpeed : moveSpeed;
 
-			// Grab things
-			if(Input.GetKeyDown(KeyCode.X))
-			{
-				GrabObject();
-			}
-			else if(Input.GetKeyUp(KeyCode.X))
-			{
-				ReleaseObject();
-			}
-		}
+            // Grab things
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                GrabObject();
+            }
+            else if (Input.GetKeyUp(KeyCode.X))
+            {
+                ReleaseObject();
+            }
+
+            //  Hit
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                HitSomething();
+            }
+
+        }
 	}
 	
 	// Update is called once per frame
@@ -119,25 +131,45 @@ public class PlayerActor : MonoBehaviour
 		transform.localPosition = localBase;
 	}
 
+    public void HitSomething ()
+    {
+        Collider[] cols = Physics.OverlapSphere(transform.position, 2);
+        if (cols.Length > 0)
+        {
+            for (int i = 0; i < cols.Length; i++)
+            {
+                CreaturesBehaviour creature = cols[i].GetComponent<CreaturesBehaviour>();
+                if (creature)
+                {
+                    creature.HitCreature();
+                }
+            }
+        }
+    }
+
 	private void GrabObject ()
 	{
 		if(grabbedObj == null)
 		{
 			Debug.Log("Try");
 			Collider[] cols = Physics.OverlapSphere(transform.position, 1, mask);
-			if(cols.Length > 0)
-			{
-				grabbedObj = cols[0].transform;
-				cols[0].isTrigger = true;
-				grabbedObj.GetComponent<Rigidbody>().isKinematic = true;
-				formerParent = grabbedObj.parent;
-				grabbedObj.SetParent(transform);
+            if (cols.Length > 0)
+            {
 
-				CreaturesBehaviour creature = grabbedObj.GetComponent<CreaturesBehaviour>();
+                CreaturesBehaviour creature = cols[0].GetComponent<CreaturesBehaviour>();
 				if(creature)
 				{
-					creature.ShowCode();
+					creature.ExtractGenetic();
 				}
+                else
+                {
+
+                    grabbedObj = cols[0].transform;
+                    cols[0].isTrigger = true;
+                    grabbedObj.GetComponent<Rigidbody>().isKinematic = true;
+                    formerParent = grabbedObj.parent;
+                    grabbedObj.SetParent(transform);
+                }
 			}
 		}
 	}

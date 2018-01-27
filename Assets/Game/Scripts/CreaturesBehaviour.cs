@@ -8,8 +8,21 @@ public class CreaturesBehaviour : MonoBehaviour
 	public int[] codePatter;
 	public SpriteRenderer spriteRender;
 	public float timeToWait;
+    public int lifes = 1;
+    public bool extratable;
 
-	public void ShowCode ()
+    private int originalLifes;
+    private Rigidbody rbody;
+    private Collider cols;
+
+    private void Start()
+    {
+        originalLifes = lifes;
+        cols = GetComponent<Collider>();
+        rbody = GetComponent<Rigidbody>();
+    }
+
+    private void ShowCode ()
 	{
 		this.tt("@ShowCode").Add(() =>
 		{
@@ -23,4 +36,27 @@ public class CreaturesBehaviour : MonoBehaviour
 			spriteRender.gameObject.SetActive(false);
 		}).Immutable();
 	}
+
+    public void HitCreature ()
+    {
+        if(lifes > 0)
+        {
+            lifes--;
+        }
+
+        if(lifes <= 0)
+        {
+            extratable = true;
+            cols.isTrigger = true;
+            rbody.isKinematic = true;
+        }
+    }
+
+    public void ExtractGenetic ()
+    {
+        if(extratable)
+        {
+            ShowCode();
+        }
+    }
 }
