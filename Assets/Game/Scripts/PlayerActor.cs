@@ -124,7 +124,7 @@ public class PlayerActor : MonoBehaviour
 		if(grabbedObj == null)
 		{
 			Debug.Log("Try");
-			Collider[] cols = Physics.OverlapSphere(transform.position, 3, mask);
+			Collider[] cols = Physics.OverlapSphere(transform.position, 1, mask);
 			if(cols.Length > 0)
 			{
 				grabbedObj = cols[0].transform;
