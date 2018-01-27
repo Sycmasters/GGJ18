@@ -12,6 +12,31 @@ ModelImporter:
     100008: //RootNode
     100010: Personaje 01
     100012: terreno
+    100014: Rocks00
+    100016: Rocks01
+    100018: Rocks02
+    100020: Rocks03
+    100022: Rocks04
+    100024: Rocks05
+    100026: Rocks06
+    100028: Rocks07
+    100030: Rocks08
+    100032: Rocks09
+    100034: Rocks10
+    100036: Rocks11
+    100038: Rocks12
+    100040: Rocks13
+    100042: Rocks14
+    100044: Rocks15
+    100046: Rocks16
+    100048: musgo
+    100050: musgo001
+    100052: musgo003
+    100054: musgo004
+    100056: musgo005
+    100058: musgo006
+    100060: musgo007
+    100062: Rocks
     400000: Base
     400002: Conector_Base01
     400004: Conector_Base02
@@ -19,26 +44,120 @@ ModelImporter:
     400008: //RootNode
     400010: Personaje 01
     400012: terreno
+    400014: Rocks00
+    400016: Rocks01
+    400018: Rocks02
+    400020: Rocks03
+    400022: Rocks04
+    400024: Rocks05
+    400026: Rocks06
+    400028: Rocks07
+    400030: Rocks08
+    400032: Rocks09
+    400034: Rocks10
+    400036: Rocks11
+    400038: Rocks12
+    400040: Rocks13
+    400042: Rocks14
+    400044: Rocks15
+    400046: Rocks16
+    400048: musgo
+    400050: musgo001
+    400052: musgo003
+    400054: musgo004
+    400056: musgo005
+    400058: musgo006
+    400060: musgo007
+    400062: Rocks
     2100000: personajeGuia
     2100002: terreno
     2100004: Base
     2100006: activado_Base
+    2100008: Rocks
+    2100010: musgo
     2300000: Base
     2300002: Conector_Base01
     2300004: Conector_Base02
     2300006: Conector_Base03
     2300008: Personaje 01
     2300010: terreno
+    2300012: Rocks00
+    2300014: Rocks01
+    2300016: Rocks02
+    2300018: Rocks03
+    2300020: Rocks04
+    2300022: Rocks05
+    2300024: Rocks06
+    2300026: Rocks07
+    2300028: Rocks08
+    2300030: Rocks09
+    2300032: Rocks10
+    2300034: Rocks11
+    2300036: Rocks12
+    2300038: Rocks13
+    2300040: Rocks14
+    2300042: Rocks15
+    2300044: Rocks16
+    2300046: musgo
+    2300048: musgo001
+    2300050: musgo003
+    2300052: musgo004
+    2300054: musgo005
+    2300056: musgo006
+    2300058: musgo007
     3300000: Base
     3300002: Conector_Base01
     3300004: Conector_Base02
     3300006: Conector_Base03
     3300008: Personaje 01
     3300010: terreno
+    3300012: Rocks00
+    3300014: Rocks01
+    3300016: Rocks02
+    3300018: Rocks03
+    3300020: Rocks04
+    3300022: Rocks05
+    3300024: Rocks06
+    3300026: Rocks07
+    3300028: Rocks08
+    3300030: Rocks09
+    3300032: Rocks10
+    3300034: Rocks11
+    3300036: Rocks12
+    3300038: Rocks13
+    3300040: Rocks14
+    3300042: Rocks15
+    3300044: Rocks16
+    3300046: musgo
+    3300048: musgo001
+    3300050: musgo003
+    3300052: musgo004
+    3300054: musgo005
+    3300056: musgo006
+    3300058: musgo007
     4300000: Personaje 01
     4300002: terreno
     4300004: Base
     4300006: Conector_Base03
+    4300008: Rocks00
+    4300010: Rocks01
+    4300012: Rocks02
+    4300014: Rocks03
+    4300016: Rocks04
+    4300018: Rocks05
+    4300020: Rocks06
+    4300022: Rocks07
+    4300024: Rocks08
+    4300026: Rocks09
+    4300028: Rocks10
+    4300030: Rocks11
+    4300032: Rocks12
+    4300034: Rocks13
+    4300036: Rocks14
+    4300038: Rocks15
+    4300040: Rocks16
+    4300042: musgo
+    7400000: Take 001
     9500000: //RootNode
   externalObjects: {}
   materials:
