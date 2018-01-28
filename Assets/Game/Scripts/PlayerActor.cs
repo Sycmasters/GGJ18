@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using matnesis.TeaTime;
 
 public class PlayerActor : MonoBehaviour 
@@ -8,6 +9,9 @@ public class PlayerActor : MonoBehaviour
 	public int inputIndex = 0;
 	public float moveSpeed = 3, runSpeed = 6;
     public int playerLifes = 3;
+    public int points;
+    public Text pointsScore;
+
     public bool invertControls = true;
 
 	public PlayerBase ownBase;
@@ -29,6 +33,7 @@ public class PlayerActor : MonoBehaviour
     private bool currCodeCorrection;
 
     public GameObject explosionParticles;
+    public GameObject transmitionParticles;
     private List<string> controllers;
 
 	// Use this for initialization
@@ -154,6 +159,17 @@ public class PlayerActor : MonoBehaviour
                     {
                         ownBase.batteries[i].GetComponent<Rigidbody>().AddExplosionForce(250, transform.position, 50);
                     }
+                }
+                else
+                {
+                    transmitionParticles.SetActive(true);
+                    this.tt("@EndPart").Add(3.5f, () =>
+                    {
+                        transmitionParticles.SetActive(false);
+                    });
+
+                    points++;
+                    pointsScore.text = points.ToString();
                 }
                 this.tt("@WaitCoupleOfSeconds").Add(1, () => 
                 {
