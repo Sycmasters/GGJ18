@@ -97,7 +97,7 @@ public class PlayerBase : MonoBehaviour
     {
         codeDisplay.SetActive(true);
 
-        Transform currPattern = actor.currentCode.patternCount[actor.currentCode.patternLevel].transform;
+        Transform currPattern = codeDisplayLevels[actor.currentCode.patternLevel].transform;
         currPattern.gameObject.SetActive(true);
         transmitting = true;
     }
