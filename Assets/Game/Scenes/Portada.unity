@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44938505, g: 0.49946183, b: 0.57569885, a: 1}
+  m_IndirectSpecularColor: {r: 0.44938517, g: 0.49946225, b: 0.5756995, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2068,7 +2068,6 @@ GameObject:
   - component: {fileID: 251368065}
   - component: {fileID: 251368066}
   - component: {fileID: 251368067}
-  - component: {fileID: 251368064}
   - component: {fileID: 251368068}
   m_Layer: 0
   m_Name: BaseP1
@@ -2096,31 +2095,6 @@ Transform:
   m_Father: {fileID: 1954350477}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 157.15501}
---- !u!114 &251368064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 251368062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9999f93f5390443b4b1679a9cc1d4541, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isWorking: 1
-  transmitting: 0
-  batteries:
-  - {fileID: 1449437513}
-  - {fileID: 1693021696}
-  - {fileID: 1444492981}
-  batteriesOn: 
-  actor: {fileID: 0}
-  codeDisplay: {fileID: 1992700083}
-  codeDisplayLevels:
-  - {fileID: 1883324697}
-  - {fileID: 1759865215}
-  - {fileID: 1793230014}
-  - {fileID: 871989903}
 --- !u!65 &251368065
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2859,7 +2833,6 @@ GameObject:
   - component: {fileID: 499470547}
   - component: {fileID: 499470546}
   - component: {fileID: 499470545}
-  - component: {fileID: 499470544}
   m_Layer: 0
   m_Name: plataformaP2
   m_TagString: Untagged
@@ -2884,26 +2857,6 @@ Transform:
   m_Father: {fileID: 1954350477}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -99.920006}
---- !u!114 &499470544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 499470542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3b07771a754b9749834285d359458bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actor: {fileID: 0}
-  eggOne: {fileID: 0}
-  eggTwo: {fileID: 0}
-  hatchTime: 1
-  eggObj: {fileID: 4403115175280518, guid: 24e8022fd85ee584ca3d936bc278b614, type: 2}
-  eggSpotOne: {fileID: 427609799}
-  eggSpotTwo: {fileID: 697843459}
-  eggSpotThree: {fileID: 1333701170}
-  codeDisplay: {fileID: 1224317064}
 --- !u!65 &499470545
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5562,7 +5515,6 @@ GameObject:
   - component: {fileID: 874248844}
   - component: {fileID: 874248843}
   - component: {fileID: 874248842}
-  - component: {fileID: 874248841}
   - component: {fileID: 874248840}
   m_Layer: 0
   m_Name: BaseP2
@@ -5602,31 +5554,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8369396, y: 1.7134094, z: 0.052945524}
   m_Center: {x: 0, y: 0.061765254, z: -0.012831064}
---- !u!114 &874248841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 874248838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9999f93f5390443b4b1679a9cc1d4541, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isWorking: 1
-  transmitting: 0
-  batteries:
-  - {fileID: 2115253988}
-  - {fileID: 206480917}
-  - {fileID: 35108483}
-  batteriesOn: 
-  actor: {fileID: 0}
-  codeDisplay: {fileID: 1802774070}
-  codeDisplayLevels:
-  - {fileID: 1126572497}
-  - {fileID: 1728714393}
-  - {fileID: 777620901}
-  - {fileID: 785107347}
 --- !u!65 &874248842
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6283,6 +6210,7 @@ GameObject:
   - component: {fileID: 966841212}
   - component: {fileID: 966841211}
   - component: {fileID: 966841210}
+  - component: {fileID: 966841213}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -6335,6 +6263,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &966841213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 966841209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c43d3223b693cd48b2f0e92e74e517f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &969174489
 GameObject:
   m_ObjectHideFlags: 0
@@ -7527,10 +7466,10 @@ RectTransform:
   m_Father: {fileID: 609030536}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 179.3, y: -130.8}
-  m_SizeDelta: {x: 215.4, y: 40.4}
+  m_AnchorMin: {x: 0.7162422, y: 0.071}
+  m_AnchorMax: {x: 0.9584844, y: 0.162}
+  m_AnchoredPosition: {x: -1, y: 0}
+  m_SizeDelta: {x: -0.6000061, y: -5.600006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1188516325
 MonoBehaviour:
@@ -11407,7 +11346,6 @@ GameObject:
   - component: {fileID: 1913393081}
   - component: {fileID: 1913393085}
   - component: {fileID: 1913393084}
-  - component: {fileID: 1913393083}
   m_Layer: 0
   m_Name: plataformaP1
   m_TagString: Untagged
@@ -11479,26 +11417,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1913393079}
   m_Mesh: {fileID: 4300048, guid: 1d9511c70845d6d49b82ac35bd84baec, type: 3}
---- !u!114 &1913393083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1913393079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3b07771a754b9749834285d359458bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actor: {fileID: 0}
-  eggOne: {fileID: 0}
-  eggTwo: {fileID: 0}
-  hatchTime: 1
-  eggObj: {fileID: 4403115175280518, guid: 24e8022fd85ee584ca3d936bc278b614, type: 2}
-  eggSpotOne: {fileID: 1930659377}
-  eggSpotTwo: {fileID: 4535751}
-  eggSpotThree: {fileID: 958644835}
-  codeDisplay: {fileID: 1535038864}
 --- !u!65 &1913393084
 BoxCollider:
   m_ObjectHideFlags: 0
