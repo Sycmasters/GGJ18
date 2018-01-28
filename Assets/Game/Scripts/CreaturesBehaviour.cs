@@ -30,14 +30,18 @@ public class CreaturesBehaviour : MonoBehaviour
         originalLifes = lifes;
         cols = GetComponent<Collider>();
         rbody = GetComponent<Rigidbody>();
-        capsuleInside.materials[1].color = capsuleColor;
-        capsuleInside.materials[1].SetColor("_EmissionColor", capsuleColor);
+        if (capsuleInside != null)
+        {
+            capsuleInside.materials[1].color = capsuleColor;
+            capsuleInside.materials[1].SetColor("_EmissionColor", capsuleColor);
+        }
     }
 
     private void ShowCode ()
 	{
 		this.tt("@ShowCode").Add(() =>
 		{
+            if (capsuleInside != null) { capsuleInside.gameObject.SetActive(false); }
 			spriteRender.transform.localPosition = new Vector3(0.2f, 1, 1.5f);
 			spriteRender.transform.SetParent(null);
 			spriteRender.transform.eulerAngles = new Vector3(-90, 0, 0);
@@ -74,10 +78,10 @@ public class CreaturesBehaviour : MonoBehaviour
             cols.isTrigger = true;
             rbody.isKinematic = true;
             anim.SetBool("Dead", true);
-            this.tt("ChangeModel").Add(.5f, () => 
+            this.tt("ChangeModel").Add(1f, () => 
             {
                 enemyModel.SetActive(false);
-                capsuleInside.gameObject.SetActive(true);
+                if (capsuleInside != null) { capsuleInside.gameObject.SetActive(true); }
                 anim.SetBool("Dead", false);
             });
         }

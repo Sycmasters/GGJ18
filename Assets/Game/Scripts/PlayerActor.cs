@@ -26,6 +26,8 @@ public class PlayerActor : MonoBehaviour
     private int currCodeIndex;
     private bool currCodeCorrection;
 
+    public GameObject explosionParticles;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -198,11 +200,14 @@ public class PlayerActor : MonoBehaviour
         Debug.Log(other.collider.gameObject.name);
 		if(other.collider.gameObject.name.Contains(ownBase.name) && isDead)
 		{
+            explosionParticles.SetActive(true);
 			for(int i = 0; i < ownBase.batteries.Count; i++)
 			{
 				ownBase.batteries[i].GetComponent<Rigidbody>().AddExplosionForce(350, transform.position, 50);
 			}
 			isDead = false;
+
+            this.tt("@ExplotionRecycle").Add(2, () => { explosionParticles.SetActive(false); });
 		}
 	}
 
@@ -237,7 +242,7 @@ public class PlayerActor : MonoBehaviour
 
 	private void GrabObject ()
 	{
-		if(grabbedObj == null)
+		if(grabbedObj == null || currentCode == null)
 		{
 			Debug.Log("Try");
 			Collider[] cols = Physics.OverlapSphere(transform.position, 1, mask);
