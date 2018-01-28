@@ -19,7 +19,9 @@ public class PlayerActor : MonoBehaviour
 
 	private Rigidbody rbody;
 	public Transform grabbedObj;
-	private Transform formerParent;
+    public Animator anim;
+    private Transform formerParent;
+    private bool moving = true;
 
 	public LayerMask mask;
     public CreaturesBehaviour currentCode;
@@ -44,6 +46,11 @@ public class PlayerActor : MonoBehaviour
         }
 
         RespawnCharacter();
+
+        if(anim == null)
+        {
+            anim = GetComponent<Animator>();
+        }
 	}
 
 	private void Update ()
@@ -163,7 +170,7 @@ public class PlayerActor : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
-        if(ownBase.transmitting)
+        if(ownBase.transmitting && !moving)
         {
             return;
         }
@@ -184,6 +191,8 @@ public class PlayerActor : MonoBehaviour
                                    -vertical * movementSpeed);
         }
 		rbody.velocity = movement;
+
+        anim.SetFloat("Forward", Mathf.Abs(horizontal) + Mathf.Abs(vertical));
 
 		if(horizontal != 0 || vertical != 0)
 			transform.rotation = Quaternion.LookRotation(new Vector3(horizontal, 0, vertical));
@@ -243,43 +252,55 @@ public class PlayerActor : MonoBehaviour
 
     public void HitSomething ()
     {
-        Collider[] cols = Physics.OverlapSphere(transform.position, 2);
-        if (cols.Length > 0)
+        moving = false;
+        anim.SetTrigger("Hit");
+        this.tt("@DelayHit").Add(0.5f, () =>
         {
-            for (int i = 0; i < cols.Length; i++)
+            Collider[] cols = Physics.OverlapSphere(transform.position, 2);
+            if (cols.Length > 0)
             {
-                CreaturesBehaviour creature = cols[i].GetComponent<CreaturesBehaviour>();
-                if (creature)
+                for (int i = 0; i < cols.Length; i++)
                 {
-                    creature.HitCreature();
+                    CreaturesBehaviour creature = cols[i].GetComponent<CreaturesBehaviour>();
+                    if (creature)
+                    {
+                        creature.HitCreature();
+                    }
                 }
             }
-        }
+            moving = true;
+        }).Immutable();
     }
 
 	private void GrabObject ()
 	{
 		if(grabbedObj == null || currentCode == null)
-		{
-			Debug.Log("Try");
-			Collider[] cols = Physics.OverlapSphere(transform.position, 1, mask);
-            if (cols.Length > 0)
+        {
+            moving = false;
+            anim.SetTrigger("Pick");
+            this.tt("@DelayPick").Add(0.5f, () => 
             {
-
-                CreaturesBehaviour creature = cols[0].GetComponent<CreaturesBehaviour>();
-				if(creature)
-				{
-					currentCode = creature.ExtractGenetic(this);
-				}
-                else
+                Debug.Log("Try");
+                Collider[] cols = Physics.OverlapSphere(transform.position, 1, mask);
+                if (cols.Length > 0)
                 {
-                    grabbedObj = cols[0].transform;
-                    cols[0].isTrigger = true;
-                    grabbedObj.GetComponent<Rigidbody>().isKinematic = true;
-                    formerParent = grabbedObj.parent;
-                    grabbedObj.SetParent(transform);
+
+                    CreaturesBehaviour creature = cols[0].GetComponent<CreaturesBehaviour>();
+                    if (creature)
+                    {
+                        currentCode = creature.ExtractGenetic(this);
+                    }
+                    else
+                    {
+                        grabbedObj = cols[0].transform;
+                        cols[0].isTrigger = true;
+                        grabbedObj.GetComponent<Rigidbody>().isKinematic = true;
+                        formerParent = grabbedObj.parent;
+                        grabbedObj.SetParent(transform);
+                    }
                 }
-			}
+                moving = true;
+            }).Immutable();
 		}
 	}
 
