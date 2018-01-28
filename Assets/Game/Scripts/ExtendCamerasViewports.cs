@@ -78,7 +78,15 @@ public class ExtendCamerasViewports : MonoBehaviour
 		}
 	}
 
-	public int ActiveCameraCount ()
+    private void Update ()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
+    }
+
+    public int ActiveCameraCount ()
 	{
 		return usedCameras;
 	}

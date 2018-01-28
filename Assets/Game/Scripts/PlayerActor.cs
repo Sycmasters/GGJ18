@@ -294,7 +294,7 @@ public class PlayerActor : MonoBehaviour
         {
             moving = false;
             anim.SetTrigger("Pick");
-            this.tt("@DelayPick").Add(0.5f, () => 
+            this.tt("@DelayPick").Add(0.2f, () => 
             {
                 Debug.Log("Try");
                 Collider[] cols = Physics.OverlapSphere(transform.position, 1, mask);
