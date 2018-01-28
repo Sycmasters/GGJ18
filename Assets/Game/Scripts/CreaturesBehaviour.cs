@@ -5,7 +5,11 @@ using matnesis.TeaTime;
 
 public class CreaturesBehaviour : MonoBehaviour 
 {
-	public int[] codePatter;
+	public List<int> codePattern;
+    public Sprite[] codePatternSprites;
+    public GameObject[] patternCount;
+    public int patternLevel = 0;
+
 	public SpriteRenderer spriteRender;
 	public float timeToWait;
     public int lifes = 1;
@@ -30,11 +34,23 @@ public class CreaturesBehaviour : MonoBehaviour
 			spriteRender.transform.SetParent(null);
 			spriteRender.transform.eulerAngles = new Vector3(-90, 0, 0);
 			spriteRender.gameObject.SetActive(true);
-		}).Add(timeToWait, () => 
+
+            Transform currPattern = patternCount[patternLevel].transform;
+            currPattern.gameObject.SetActive(true);
+
+            for (int i = 0; i < currPattern.childCount; i++)
+            {
+                int rmd = Random.Range(0, codePatternSprites.Length);
+                codePattern.Add(rmd);
+                currPattern.GetChild(i).GetComponent<SpriteRenderer>().sprite = codePatternSprites[rmd];
+            }
+
+        }).Add(timeToWait, () => 
 		{
 			spriteRender.transform.SetParent(transform);
 			spriteRender.gameObject.SetActive(false);
-		}).Immutable();
+            gameObject.SetActive(false);
+        }).Immutable();
 	}
 
     public void HitCreature ()
@@ -52,11 +68,15 @@ public class CreaturesBehaviour : MonoBehaviour
         }
     }
 
-    public void ExtractGenetic ()
+    public CreaturesBehaviour ExtractGenetic ()
     {
-        if(extratable)
+        if(extratable && !spriteRender.gameObject.activeInHierarchy)
         {
             ShowCode();
+
+            return this;
         }
+
+        return null;
     }
 }

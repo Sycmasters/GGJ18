@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using matnesis.TeaTime;
 
 public class PlayerActor : MonoBehaviour 
 {
@@ -13,13 +14,16 @@ public class PlayerActor : MonoBehaviour
 	private float movementSpeed, lifeSecondCounter;
 	private Vector3 movement;
 	private int originalLifeCount;
-	private bool isDead = true;
+	private bool isDead = true, noAxis;
 
 	private Rigidbody rbody;
 	public Transform grabbedObj;
 	private Transform formerParent;
 
 	public LayerMask mask;
+    public CreaturesBehaviour currentCode;
+    private int currCodeIndex;
+    private bool currCodeCorrection;
 
 	// Use this for initialization
 	void Start () 
@@ -33,7 +37,13 @@ public class PlayerActor : MonoBehaviour
 
 	private void Update ()
 	{
-		if (inputIndex >= 0) 
+        if(ownBase.transmitting)
+        {
+            GetCodeInput();
+            return;
+        }
+
+        if (inputIndex >= 0) 
 		{
 			movementSpeed = Input.GetKey ("joystick " + (inputIndex + 1) + " button 0") ? runSpeed : moveSpeed;
 
@@ -74,10 +84,70 @@ public class PlayerActor : MonoBehaviour
 
         }
 	}
+
+    private void GetCodeInput()
+    {
+        {
+            int pressedKey = -1;
+
+            if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 0"))
+            {
+                pressedKey = 3;
+            }
+            else if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 1"))
+            {
+                pressedKey = 1;
+            }
+            else if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 2"))
+            {
+                pressedKey = 0;
+            }
+            else if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 3"))
+            {
+                pressedKey = 2;
+            }
+
+            if (pressedKey < 0)
+            {
+                return;
+            }
+            else
+            {
+                Debug.Log("Pressed " + pressedKey + " but in real was " + currentCode.codePattern[currCodeIndex]);
+            }
+            ownBase.codeDisplayLevels[currentCode.patternLevel].transform.GetChild(currCodeIndex).GetComponent<SpriteRenderer>().sprite = currentCode.codePatternSprites[pressedKey];
+            if (currentCode.codePattern[currCodeIndex] == pressedKey)
+            {
+                currCodeIndex++;
+            }
+            else
+            {
+                currCodeIndex++;
+                currCodeCorrection = false;
+            }
+
+            if (currentCode != null && currCodeIndex >= currentCode.codePattern.Count)
+            {
+                if (!currCodeCorrection)
+                {
+                    for (int i = 0; i < ownBase.batteries.Count; i++)
+                    {
+                        ownBase.batteries[i].GetComponent<Rigidbody>().AddExplosionForce(250, transform.position, 50);
+                    }
+                }
+                this.tt("@WaitCoupleOfSeconds").Add(1, () => { ownBase.DeactivateCodeInput(); }).Immutable();
+            }
+        }
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
+        if(ownBase.transmitting)
+        {
+            return;
+        }
+
 		float horizontal = inputIndex >= 0 ? Input.GetAxis ("Horizontal" + inputIndex) : Input.GetAxis ("Horizontal");
 		float vertical = inputIndex >= 0 ? Input.GetAxis ("Vertical" + inputIndex) : Input.GetAxis ("Vertical");
 
@@ -95,6 +165,14 @@ public class PlayerActor : MonoBehaviour
 	{
 		if(other.name.ToLower().Contains("heal") && other.transform.IsChildOf(ownBase.transform) && ownBase.isWorking)
 		{
+            if(currentCode != null && !ownBase.transmitting)
+            {
+                noAxis = true;
+                currCodeIndex = 0;
+                currCodeCorrection = true;
+                ownBase.codeDisplayLevels[currentCode.patternLevel].SetActive(true);
+                ownBase.ActivatingCodeInput();
+            }
 			if (Time.time > lifeSecondCounter) 
 			{
 				if(playerLifes < originalLifeCount)
@@ -159,11 +237,10 @@ public class PlayerActor : MonoBehaviour
                 CreaturesBehaviour creature = cols[0].GetComponent<CreaturesBehaviour>();
 				if(creature)
 				{
-					creature.ExtractGenetic();
+					currentCode = creature.ExtractGenetic();
 				}
                 else
                 {
-
                     grabbedObj = cols[0].transform;
                     cols[0].isTrigger = true;
                     grabbedObj.GetComponent<Rigidbody>().isKinematic = true;
