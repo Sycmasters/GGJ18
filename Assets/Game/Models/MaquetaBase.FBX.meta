@@ -41,6 +41,7 @@ ModelImporter:
     100066: Cylinder002
     100068: ManoS
     100070: plataforma
+    100072: Group001
     400000: Base
     400002: Conector_Base01
     400004: Conector_Base02
@@ -77,6 +78,7 @@ ModelImporter:
     400066: Cylinder002
     400068: ManoS
     400070: plataforma
+    400072: Group001
     2100000: personajeGuia
     2100002: terreno
     2100004: Base
