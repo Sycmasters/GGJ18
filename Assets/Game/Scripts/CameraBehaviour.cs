@@ -15,7 +15,10 @@ public class CameraBehaviour : MonoBehaviour
 	private void Awake ()
 	{
 		thisCam = GetComponent<Camera> ();
-		charRender = character.GetComponent<Renderer> ();
+        if (charRender == null)
+        {
+            charRender = character.GetComponent<Renderer>();
+        }
 	}
 
 	private void Start ()

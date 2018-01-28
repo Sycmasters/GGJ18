@@ -7,7 +7,8 @@ public class PlayerActor : MonoBehaviour
 {
 	public int inputIndex = 0;
 	public float moveSpeed = 3, runSpeed = 6;
-	public int playerLifes = 3;
+    public int playerLifes = 3;
+    public bool invertControls = true;
 
 	public PlayerBase ownBase;
 
@@ -151,10 +152,18 @@ public class PlayerActor : MonoBehaviour
 		float horizontal = inputIndex >= 0 ? Input.GetAxis ("Horizontal" + inputIndex) : Input.GetAxis ("Horizontal");
 		float vertical = inputIndex >= 0 ? Input.GetAxis ("Vertical" + inputIndex) : Input.GetAxis ("Vertical");
 
-		movement = new Vector3(horizontal * movementSpeed,
-							   rbody.velocity.y,
-							   vertical * movementSpeed);
-
+        if (!invertControls)
+        {
+            movement = new Vector3(horizontal * movementSpeed,
+                                   rbody.velocity.y,
+                                   vertical * movementSpeed);
+        }
+        else
+        {
+            movement = new Vector3(-horizontal * movementSpeed,
+                                   rbody.velocity.y,
+                                   -vertical * movementSpeed);
+        }
 		rbody.velocity = movement;
 
 		if(horizontal != 0 || vertical != 0)
@@ -186,11 +195,12 @@ public class PlayerActor : MonoBehaviour
 
 	private void OnCollisionEnter (Collision other)
 	{
+        Debug.Log(other.collider.gameObject.name);
 		if(other.collider.gameObject.name.Contains(ownBase.name) && isDead)
 		{
 			for(int i = 0; i < ownBase.batteries.Count; i++)
 			{
-				ownBase.batteries[i].GetComponent<Rigidbody>().AddExplosionForce(250, transform.position, 50);
+				ownBase.batteries[i].GetComponent<Rigidbody>().AddExplosionForce(350, transform.position, 50);
 			}
 			isDead = false;
 		}

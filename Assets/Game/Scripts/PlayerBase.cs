@@ -16,6 +16,7 @@ public class PlayerBase : MonoBehaviour
 	private Vector3[] batteriesSnapPos;
 	private Quaternion[] batteriesSnapRot;
 	private int batteryLoopCount;
+    private Renderer myRender;
 
 	// Use this for initialization
 	public void Start () 
@@ -24,7 +25,10 @@ public class PlayerBase : MonoBehaviour
 		batteriesSnapPos = new Vector3[batteries.Count];
 		batteriesSnapRot = new Quaternion[batteries.Count];
 
-		for(int i = 0; i < batteries.Count; i++)
+        myRender = GetComponent<Renderer>();
+
+
+        for (int i = 0; i < batteries.Count; i++)
 		{
 			batteriesSnapPos[i] = batteries[i].transform.position;
 			batteriesSnapRot[i] = batteries[i].transform.rotation;
@@ -43,8 +47,9 @@ public class PlayerBase : MonoBehaviour
 				}
 			}
 			isWorking = working;
-            GetComponent<Renderer>().materials[1].color = working ? Color.green : Color.red;
-		}).Add (0.2f).Repeat ();
+            myRender.materials[1].color = working ? Color.green : Color.red;
+            myRender.materials[1].SetColor("_EmissionColor", working ? Color.green : Color.red);
+        }).Add (0.2f).Repeat ();
 	}
 
 	private void OnTriggerEnter (Collider other)
@@ -56,8 +61,10 @@ public class PlayerBase : MonoBehaviour
 				int batteryIndex = batteries.IndexOf (other.gameObject);
 
 				batteriesOn [batteryIndex] = true;
-				batteries [batteryIndex].GetComponent<Renderer> ().materials [1].color = Color.green;
-				batteries[batteryIndex].transform.position = batteriesSnapPos[batteryIndex];
+                Renderer render = batteries[batteryIndex].GetComponent<Renderer>();
+                render.materials[1].color = Color.green;
+                render.materials[1].SetColor("_EmissionColor", Color.green);
+                batteries[batteryIndex].transform.position = batteriesSnapPos[batteryIndex];
 				batteries[batteryIndex].transform.rotation = batteriesSnapRot[batteryIndex];
 				actor.ReleaseObject();
 			}
@@ -74,7 +81,9 @@ public class PlayerBase : MonoBehaviour
                 {
                     int batteryIndex = batteries.IndexOf(other.gameObject);
                     batteriesOn[batteryIndex] = true;
-                    batteries[batteryIndex].GetComponent<Renderer>().materials[1].color = Color.green;
+                    Renderer render = batteries[batteryIndex].GetComponent<Renderer>();
+                    render.materials[1].color = Color.green; 
+                    render.materials[1].SetColor("_EmissionColor", Color.green); 
                 }
             }
         }
@@ -88,8 +97,10 @@ public class PlayerBase : MonoBehaviour
 			{
 				int batteryIndex = batteries.IndexOf (other.gameObject);
 				batteriesOn [batteryIndex] = false;
-				batteries [batteryIndex].GetComponent<Renderer> ().materials [1].color = Color.red;
-			}
+                Renderer render = batteries[batteryIndex].GetComponent<Renderer>();
+                render.materials[1].color = Color.red;
+                render.materials[1].SetColor("_EmissionColor", Color.red);
+            }
 		}
 	}
 
