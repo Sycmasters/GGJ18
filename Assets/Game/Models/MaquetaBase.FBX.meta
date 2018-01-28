@@ -39,6 +39,8 @@ ModelImporter:
     100062: Rocks
     100064: capsula captura
     100066: Cylinder002
+    100068: ManoS
+    100070: plataforma
     400000: Base
     400002: Conector_Base01
     400004: Conector_Base02
@@ -73,6 +75,8 @@ ModelImporter:
     400062: Rocks
     400064: capsula captura
     400066: Cylinder002
+    400068: ManoS
+    400070: plataforma
     2100000: personajeGuia
     2100002: terreno
     2100004: Base
@@ -114,6 +118,7 @@ ModelImporter:
     2300058: musgo007
     2300060: capsula captura
     2300062: Cylinder002
+    2300064: plataforma
     3300000: Base
     3300002: Conector_Base01
     3300004: Conector_Base02
@@ -146,6 +151,7 @@ ModelImporter:
     3300058: musgo007
     3300060: capsula captura
     3300062: Cylinder002
+    3300064: plataforma
     4300000: Personaje 01
     4300002: terreno
     4300004: Base
@@ -170,9 +176,55 @@ ModelImporter:
     4300042: musgo
     4300044: capsula captura
     4300046: Cylinder002
+    4300048: plataforma
     7400000: Take 001
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02 - Default
+    second: {fileID: 2100000, guid: 0695304c00a76f24cba26e368f1a2ca4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 03 - Default
+    second: {fileID: 2100000, guid: 58c0fe1f1f2388643bd11c913c21c400, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 04 - Default
+    second: {fileID: 2100000, guid: a9015ef14b3af6141b7897be42e9c3dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base
+    second: {fileID: 2100000, guid: 1290ce7f1770cc94b9cdfbcc61e595d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: activado2_Base
+    second: {fileID: 2100000, guid: 1fbb1b8db114fcc4b9caf1930d0afd21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: activado_Base
+    second: {fileID: 2100000, guid: ca605102bb1626b45bcfe01fc4518aef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: capsula
+    second: {fileID: 2100000, guid: edacf6fde0d4a874082c58514c1ab14b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: capsulaContenido
+    second: {fileID: 2100000, guid: a09928314b681f046b52541019ba5a1a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: terreno
+    second: {fileID: 2100000, guid: 2329d92d736d70048967ad29c3bfb316, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
