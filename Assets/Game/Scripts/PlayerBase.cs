@@ -5,11 +5,13 @@ using matnesis.TeaTime;
 
 public class PlayerBase : MonoBehaviour 
 {
-	public bool isWorking = true;
+	public bool isWorking = true, transmitting;
 
 	public List<GameObject> batteries = new List<GameObject>();
 	public bool[] batteriesOn;
 	public PlayerActor actor;
+    public GameObject codeDisplay;
+    public GameObject[] codeDisplayLevels;
 
 	private Vector3[] batteriesSnapPos;
 	private Quaternion[] batteriesSnapRot;
@@ -90,4 +92,20 @@ public class PlayerBase : MonoBehaviour
 			}
 		}
 	}
+
+    public void ActivatingCodeInput ()
+    {
+        codeDisplay.SetActive(true);
+
+        Transform currPattern = actor.currentCode.patternCount[actor.currentCode.patternLevel].transform;
+        currPattern.gameObject.SetActive(true);
+        transmitting = true;
+    }
+
+    public void DeactivateCodeInput ()
+    {
+        codeDisplay.SetActive(false);
+        actor.currentCode = null;
+        transmitting = false;
+    }
 }
