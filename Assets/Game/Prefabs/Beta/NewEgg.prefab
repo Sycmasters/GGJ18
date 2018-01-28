@@ -101,9 +101,10 @@ MonoBehaviour:
   - {fileID: 21300012, guid: 46256c85287bd574bb4703989892e301, type: 3}
   - {fileID: 21300014, guid: 46256c85287bd574bb4703989892e301, type: 3}
   - {fileID: 21300016, guid: 46256c85287bd574bb4703989892e301, type: 3}
+  capsuleColor: {r: 0, g: 0, b: 0, a: 0}
   patternCount: []
   patternLevel: 3
   spriteRender: {fileID: 0}
-  timeToWait: 0
+  timeToWait: 4
   lifes: 1
   extratable: 0

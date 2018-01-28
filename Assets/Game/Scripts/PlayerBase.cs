@@ -115,6 +115,7 @@ public class PlayerBase : MonoBehaviour
 
     public void DeactivateCodeInput ()
     {
+        actor.capsule.gameObject.SetActive(false);
         codeDisplay.SetActive(false);
         actor.currentCode = null;
         transmitting = false;

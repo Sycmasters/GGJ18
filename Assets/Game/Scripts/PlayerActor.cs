@@ -11,7 +11,7 @@ public class PlayerActor : MonoBehaviour
     public bool invertControls = true;
 
 	public PlayerBase ownBase;
-
+    public Renderer capsule;
 	private float movementSpeed, lifeSecondCounter;
 	private Vector3 movement;
 	private int originalLifeCount;
@@ -247,7 +247,7 @@ public class PlayerActor : MonoBehaviour
                 CreaturesBehaviour creature = cols[0].GetComponent<CreaturesBehaviour>();
 				if(creature)
 				{
-					currentCode = creature.ExtractGenetic();
+					currentCode = creature.ExtractGenetic(this);
 				}
                 else
                 {

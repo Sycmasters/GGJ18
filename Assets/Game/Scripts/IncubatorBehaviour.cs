@@ -19,14 +19,20 @@ public class IncubatorBehaviour : MonoBehaviour
         if (eggOne == null)
         {
             eggOne = egg;
-            Transform newEgg = egg.transform.liteInstantiate(eggSpotOne.position, eggObj.rotation);
+            Transform newEgg = eggObj.liteInstantiate(eggSpotOne.position, eggObj.rotation);
             eggOne = newEgg.GetComponent<CreaturesBehaviour>();
+            actor.capsule.gameObject.SetActive(false);
+            newEgg.GetComponent<Renderer>().materials[1].color = egg.capsuleColor;
+            newEgg.GetComponent<Renderer>().materials[1].SetColor("_EmissionColor", egg.capsuleColor);
         }
         else if (eggTwo == null)
         {
             eggTwo = egg;
-            Transform newEgg = egg.transform.liteInstantiate(eggSpotTwo.position, eggObj.rotation);
+            Transform newEgg = eggObj.liteInstantiate(eggSpotTwo.position, eggObj.rotation);
             eggTwo = newEgg.GetComponent<CreaturesBehaviour>();
+            actor.capsule.gameObject.SetActive(false);
+            newEgg.GetComponent<Renderer>().materials[1].color = egg.capsuleColor;
+            newEgg.GetComponent<Renderer>().materials[1].SetColor("_EmissionColor", egg.capsuleColor);
         }
 
         if (eggOne != null && eggTwo != null)
@@ -34,9 +40,12 @@ public class IncubatorBehaviour : MonoBehaviour
             this.tt("@HatchEgg").Add(hatchTime, () =>
             {
                 Transform newEgg = eggObj.liteInstantiate(eggSpotThree.position, eggObj.rotation);
-                newEgg.GetComponent<Renderer>().material.color = eggOne.GetComponent<Renderer>().material.color + eggTwo.GetComponent<Renderer>().material.color;
+                Color heirColor = eggOne.GetComponent<Renderer>().materials[1].color + eggTwo.GetComponent<Renderer>().materials[1].color;
+                newEgg.GetComponent<Renderer>().materials[1].color = heirColor;
+                newEgg.GetComponent<Renderer>().materials[1].SetColor("_EmissionColor", heirColor);
                 hatchedEgg = newEgg.GetComponent<CreaturesBehaviour>();
                 hatchedEgg.patternLevel = 3;
+                hatchedEgg.capsuleColor = heirColor;
                 this.tt("@ShowCode").Add(() =>
                 {
                     codeDisplay.gameObject.SetActive(true);
@@ -52,6 +61,9 @@ public class IncubatorBehaviour : MonoBehaviour
                     if(hatchedEgg != null)
                     {
                         actor.currentCode = hatchedEgg;
+                        actor.capsule.gameObject.SetActive(true);
+                        actor.capsule.materials[1].color = hatchedEgg.capsuleColor;
+                        actor.capsule.materials[1].SetColor("_EmissionColor", hatchedEgg.capsuleColor);
                         hatchedEgg.gameObject.SetActive(false);
                         eggOne.gameObject.SetActive(false);
                         eggTwo.gameObject.SetActive(false);
@@ -86,6 +98,9 @@ public class IncubatorBehaviour : MonoBehaviour
             if (hatchedEgg != null)
             {
                 actor.currentCode = hatchedEgg;
+                actor.capsule.gameObject.SetActive(true);
+                actor.capsule.materials[1].color = hatchedEgg.capsuleColor;
+                actor.capsule.materials[1].SetColor("_EmissionColor", hatchedEgg.capsuleColor);
                 hatchedEgg.gameObject.SetActive(false);
                 eggOne.gameObject.SetActive(false);
                 eggTwo.gameObject.SetActive(false);
