@@ -27,6 +27,7 @@ public class PlayerActor : MonoBehaviour
     private bool currCodeCorrection;
 
     public GameObject explosionParticles;
+    private List<string> controllers;
 
 	// Use this for initialization
 	void Start () 
@@ -35,7 +36,14 @@ public class PlayerActor : MonoBehaviour
 		originalLifeCount = playerLifes;
 		ownBase.actor = this;
 
-		RespawnCharacter();
+        controllers = new List<string>(Input.GetJoystickNames());
+
+        foreach(string con in controllers)
+        {
+            Debug.Log(inputIndex + " - " + con);
+        }
+
+        RespawnCharacter();
 	}
 
 	private void Update ()
@@ -93,15 +101,15 @@ public class PlayerActor : MonoBehaviour
         {
             int pressedKey = -1;
 
-            if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 0"))
+            if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button " + (!controllers[inputIndex].ToLower().Contains("xbox") ? 1 : 0)))
             {
                 pressedKey = 3;
             }
-            else if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 1"))
+            else if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button " + (!controllers[inputIndex].ToLower().Contains("xbox") ? 2 : 1)))
             {
                 pressedKey = 1;
             }
-            else if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button 2"))
+            else if (Input.GetKeyDown("joystick " + (inputIndex + 1) + " button " + (!controllers[inputIndex].ToLower().Contains("xbox") ? 0 : 2)))
             {
                 pressedKey = 0;
             }
@@ -119,6 +127,8 @@ public class PlayerActor : MonoBehaviour
                 Debug.Log("Pressed " + pressedKey + " but in real was " + currentCode.codePattern[currCodeIndex]);
             }
             ownBase.codeDisplayLevels[currentCode.patternLevel].transform.GetChild(currCodeIndex).GetComponent<SpriteRenderer>().sprite = currentCode.codePatternSprites[pressedKey];
+
+
             if (currentCode.codePattern[currCodeIndex] == pressedKey)
             {
                 currCodeIndex++;
@@ -138,7 +148,14 @@ public class PlayerActor : MonoBehaviour
                         ownBase.batteries[i].GetComponent<Rigidbody>().AddExplosionForce(250, transform.position, 50);
                     }
                 }
-                this.tt("@WaitCoupleOfSeconds").Add(1, () => { ownBase.DeactivateCodeInput(); }).Immutable();
+                this.tt("@WaitCoupleOfSeconds").Add(1, () => 
+                {
+                    for (int i = 0; i < ownBase.codeDisplayLevels[currentCode.patternLevel].transform.childCount; i++)
+                    {
+                        ownBase.codeDisplayLevels[currentCode.patternLevel].transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = null;
+                    }
+                    ownBase.DeactivateCodeInput();
+                }).Immutable();
             }
         }
     }
